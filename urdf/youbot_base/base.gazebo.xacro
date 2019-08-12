@@ -16,20 +16,12 @@
       <kp>1000000</kp>
       <kd>100</kd>
     </gazebo>
-    
-    <gazebo reference="caster_link_fl">
-      <material value="youbot/Orange" />
-    </gazebo>
 
     <!-- front right wheel -->
     <gazebo reference="wheel_link_fr">
       <material value="youbot/Orange" />
       <kp>1000000</kp>
       <kd>100</kd>
-    </gazebo>
-    
-    <gazebo reference="caster_link_fr">   
-      <material value="youbot/Orange" />
     </gazebo>
 
     <!-- back left wheel -->
@@ -38,10 +30,6 @@
       <kp>1000000</kp>
       <kd>100</kd>
     </gazebo>
-    
-    <gazebo reference="caster_link_bl">
-      <material value="youbot/Orange" />
-    </gazebo>
 
     <!-- back right wheel -->
     <gazebo reference="wheel_link_br">
@@ -49,20 +37,16 @@
       <kp>1000000</kp>
       <kd>100</kd>
     </gazebo>
-    
-    <gazebo reference="caster_link_br">
-      <material value="youbot/Orange" />
-    </gazebo>
 
     <!-- position controller -->
     <gazebo>
-      <plugin name="base_controller" filename="libgazebo_ros_planar_move.so">
+      <!--plugin name="base_controller" filename="libgazebo_ros_planar_move.so">
         <commandTopic>cmd_vel</commandTopic>
         <odometryTopic>odom</odometryTopic>
         <odometryFrame>odom</odometryFrame>
         <odometryRate>100.0</odometryRate>
         <robotBaseFrame>base_footprint</robotBaseFrame>
-      </plugin>
+      </plugin-->
     </gazebo>
   </xacro:macro>
 
