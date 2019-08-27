@@ -7,15 +7,15 @@
 	<xacro:property name="wheel_mechanical_reduction" value="1" />
 
 	<xacro:macro name="youbot_base_transmission">
-	<!-- front left wheel -->
+	  <!-- front left wheel -->
 		<transmission name="wheel_trans_fl">
       <type>transmission_interface/SimpleTransmission</type>
 			<actuator name="wheel_motor_fl">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
       </actuator>
 			<joint name="wheel_joint_fl">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
 		</transmission>
 
@@ -24,11 +24,11 @@
 	  <transmission name="wheel_trans_fr">
       <type>transmission_interface/SimpleTransmission</type>
 		  <actuator name="wheel_motor_fr">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
       </actuator>
 		  <joint name="wheel_joint_fr">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
 	  </transmission>
 
@@ -38,11 +38,11 @@
 	  <transmission name="wheel_trans_bl">
       <type>transmission_interface/SimpleTransmission</type>
 	    <actuator name="wheel_motor_bl" >
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
       </actuator>
 	    <joint name="wheel_joint_bl">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
 	  </transmission>
 
@@ -52,11 +52,11 @@
 	  <transmission name="wheel_trans_br">
       <type>transmission_interface/SimpleTransmission</type>
 	    <actuator name="wheel_motor_br" >
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>${wheel_mechanical_reduction}</mechanicalReduction>
       </actuator>
 		  <joint name="wheel_joint_br">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
 	  </transmission>
 
