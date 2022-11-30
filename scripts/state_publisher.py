@@ -7,6 +7,7 @@ from sensor_msgs.msg import JointState
 from tf2_ros import TransformBroadcaster, TransformStamped
 
 from time import sleep
+from copy import copy
 
 
 path = [
@@ -55,8 +56,8 @@ path = [
 
 class StatePublisher(Node):
     
-    def smother(self, t, t0, t1, x0, x1):
-        return float(x0)+(float(x1-x0)*(float(t-t0)/float(t1-t0)))
+    def smother(self, d, x0, x1):
+        return float(x0)+(float(x1-x0)*d)
 
     def __init__(self):
         rclpy.init()
@@ -68,7 +69,7 @@ class StatePublisher(Node):
         self.get_logger().info("{0} started".format(self.nodeName))
 
         degree = pi / 180.0
-        loop_rate = self.create_rate(60)
+        loop_rate = self.create_rate(30)
 
         # robot state
         virtual_joint_x = 0.
@@ -140,15 +141,31 @@ class StatePublisher(Node):
                         while (now.nanoseconds-t0) < path[i]["t"]*(10 ** 9):
                             rclpy.spin_once(self)
                             now = self.get_clock().now()
-
-                            print(now.nanoseconds-t0, path[i]["t"]*1e+9)
+                            d = (now.nanoseconds-t0)/(path[i]["t"]*(10 ** 9))
+                            print(d)
                             
                             joint_state.header.stamp = now.to_msg()
-                            arm_joint_1 = self.smother(now.nanoseconds, t0, t0+path[i]["t"]*1e+9, arm_joint_1_, degree*path[i]["arm"][0])
-                            arm_joint_2 = self.smother(now.nanoseconds, t0, t0+path[i]["t"]*1e+9, arm_joint_2_, degree*path[i]["arm"][1])
-                            arm_joint_3 = self.smother(now.nanoseconds, t0, t0+path[i]["t"]*1e+9, arm_joint_3_, degree*path[i]["arm"][2])
-                            arm_joint_4 = self.smother(now.nanoseconds, t0, t0+path[i]["t"]*1e+9, arm_joint_4_, degree*path[i]["arm"][3])
-                            arm_joint_5 = self.smother(now.nanoseconds, t0, t0+path[i]["t"]*1e+9, arm_joint_5_, degree*path[i]["arm"][4])
+                            arm_joint_1 = self.smother(d, arm_joint_1_, degree*path[i]["arm"][0])
+                            arm_joint_2 = self.smother(d, arm_joint_2_, degree*path[i]["arm"][1])
+                            arm_joint_3 = self.smother(d, arm_joint_3_, degree*path[i]["arm"][2])
+                            arm_joint_4 = self.smother(d, arm_joint_4_, degree*path[i]["arm"][3])
+                            arm_joint_5 = self.smother(d, arm_joint_5_, degree*path[i]["arm"][4])
+
+
+                            joint_state.position = [
+                                virtual_joint_x,
+                                virtual_joint_y,
+                                virtual_joint_z,
+                                wheel_joint_fl,
+                                wheel_joint_fr,
+                                wheel_joint_bl,
+                                wheel_joint_br,
+                                arm_joint_1,
+                                arm_joint_2,
+                                arm_joint_3,
+                                arm_joint_4,
+                                arm_joint_5
+                            ]
 
                             self.joint_pub.publish(joint_state)
 
