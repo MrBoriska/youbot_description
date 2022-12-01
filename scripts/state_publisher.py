@@ -2,9 +2,7 @@ from math import sin, cos, pi
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
-from geometry_msgs.msg import Quaternion
 from sensor_msgs.msg import JointState
-from tf2_ros import TransformBroadcaster, TransformStamped
 
 from time import sleep
 from copy import copy
@@ -178,7 +176,7 @@ class StatePublisher(Node):
                 i += 1
 
                 # This will adjust as needed per iteration
-                loop_rate.sleep()
+                #loop_rate.sleep()
 
         except KeyboardInterrupt:
             pass
