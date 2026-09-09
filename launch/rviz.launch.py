@@ -39,11 +39,14 @@ def generate_launch_description():
         default_value='True',
         description='Whether to start RVIZ')
 
+    urdf_file_path = os.path.join(bringup_dir, 'urdf', 'youbot.urdf')
+    with open(urdf_file_path, 'r') as infp:
+        robot_description_content = infp.read()
+
     declare_urdf_cmd = DeclareLaunchArgument(
         'urdf_file',
-        default_value=os.path.join(bringup_dir, 'urdf', 'youbot.urdf'),
-        description='Whether to start RVIZ')
- 
+        default_value=urdf_file_path,
+        description='Path to URDF file')
 
     start_robot_state_publisher_cmd = Node(
         condition=IfCondition(use_robot_state_pub),
@@ -51,8 +54,7 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='robot_state_publisher',
         output='screen',
-        #parameters=[{'use_sim_time': use_sim_time}],
-        arguments=[urdf_file])
+        parameters=[{'robot_description': robot_description_content}])
     
     start_joint_state_publisher_cmd = Node(
         condition=IfCondition(use_joint_state_pub),
@@ -60,7 +62,7 @@ def generate_launch_description():
         executable='joint_state_publisher_gui',
         name='joint_state_publisher_gui',
         output='screen',
-        arguments=[urdf_file])
+        parameters=[{'robot_description': robot_description_content}])
     
     rviz_cmd = Node(
         condition=IfCondition(use_rviz),

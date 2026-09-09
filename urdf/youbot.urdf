@@ -234,7 +234,8 @@
     </collision>
   </link>
 
-  <plugin name='base_controller'
+  <gazebo>
+    <plugin name='base_controller'
 		        filename='libgazebo_ros_planar_move.so'>
 			<ros>	
 				<namespace>/youbot</namespace>
@@ -258,7 +259,8 @@
 			<covariance_x>0.0001</covariance_x>
 			<covariance_y>0.0001</covariance_y>
 			<covariance_yaw>0.01</covariance_yaw>
-	</plugin>
+	  </plugin>
+  </gazebo>
 
   
   <gazebo reference="base_footprint">
