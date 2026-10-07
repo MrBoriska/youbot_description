@@ -55,13 +55,13 @@ class YoubotStatePublisher(Node):
             'arm_joint_5'
         ]
 
-        # Gazebo scoped joint names
+        # Gazebo joint names (clean names without nested model prefix)
         self.gazebo_arm_joint_names = [
-            'youbot::arm_joint_1',
-            'youbot::arm_joint_2',
-            'youbot::arm_joint_3',
-            'youbot::arm_joint_4',
-            'youbot::arm_joint_5'
+            'arm_joint_1',
+            'arm_joint_2',
+            'arm_joint_3',
+            'arm_joint_4',
+            'arm_joint_5'
         ]
 
         # All joints for RViz
